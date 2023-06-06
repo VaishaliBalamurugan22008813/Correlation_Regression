@@ -20,46 +20,43 @@ If y represents the dependent variable and x the independent variable, this rela
 ![image](https://user-images.githubusercontent.com/104613195/168225866-ac8f6610-bdc3-4ac2-a24e-2b24ba08e189.png)
 
 # Program :
-import math
+```
+#DEVELOPED BY: VAISHALI BALAMURUGAN
+#REG NO: 212222230164
 import numpy as np
-pdf=[[0,0.01,0.03,0.05,0.07,0.09],[0.01,0.02,0.04,0.05,0.06,0.08],[0.01,0.03,0.05,0.05,0.05,0.06],[0.01,0.02,0.04,0.06,0.06,0.05]]
-
-p_x=np.sum(pdf,axis=0)
-p_y=np.sum(pdf,axis=1)
-
-x=[0,1,2,3,4,5]
-y=[0,1,2,3]
-E_x=np.inner(x,p_x)
-E_y=np.inner(y,p_y)
-
-E_x_2=np.inner(np.square(x),p_x)
-E_y_2=np.inner(np.square(y),p_y)
-
-variance_x=E_x_2-E_x**2
-variance_y=E_y_2-E_y**2
-sd_x=math.sqrt(variance_x)
-sd_y=math.sqrt(variance_y)
-
-E_x_y=0
-for i in range(4):
-    for j in range(6):
-        E_x_y=E_x_y+x[j]*y[i]*pdf[i][j]
-        
-Covariance=E_x_y-(E_x*E_y)
-Covariance_coeff=Covariance/(sd_x*sd_y)
-
-import pandas as pd
-pdf_df=pd.DataFrame(pdf)
-display(pdf_df)
-print("Variance of X:\t\t\t\t",variance_x)
-print("Variance of Y:\t\t\t\t",variance_y)
-print("Standard deviation of X:\t\t",sd_x)
-print("Standard deviation of Y:\t\t",sd_y)
-print("Covariance:\t\t\t\t",Covariance.round(4))
-print("Covariance Coefficient of Corelation:\t",Covariance_coeff.round(4))
-
-
-
+import math
+import matplotlib.pyplot as plt 
+x=[int(i) for i in input().split()]
+y=[int(i) for i in input().split()]
+N=len(x)
+sx=0
+sy=0
+sxy=0
+sx2=0
+sy2=0
+for i in range(0,N):
+    sx=sx+x[i]
+    sy=sy+y[i]
+    sxy=sxy+x[i]*y[i]
+    sx2=sx2+x[i]**2
+    sy2=sy2+y[i]**2
+r=(N*sxy-sx*sy)/(math.sqrt(N*sx2-sx**2)*math.sqrt(N*sy2-sy**2))
+print("The correlation cofficient of %0.3f"%r)
+byx=(N*sxy-sx*sy)/(N*sx2-sx**2)
+xmean=sx/N
+ymean=sy/N
+print("The Regression line Y on X is ::: %0.3f + %0.3f (x-%0.3f)"%(ymean,byx,xmean))
+plt.scatter(x,y)
+def reg(x):
+    return ymean+byx*(x-xmean)
+x=np.linspace(0,80,51)
+y1=reg(x)
+plt.plot(x,y1,'r')
+plt.xlabel('x-data')
+plt.ylabel('y-data')
+plt.legend(['Regression Line','Data points'])
+```
 # Results and Output : 
 Marginal distributions and correation coefficient of joint probability mass funcition of two dimensional random variables is found using python program.
-![image](https://github.com/VaishaliBalamurugan22008813/Correlation_Regression/assets/119390134/0fafcba4-2bba-42d6-95ce-a536bdeaefa4)
+
+![image](https://github.com/VaishaliBalamurugan22008813/Correlation_Regression/assets/119390134/b2dca4d9-e791-4f17-b2af-6f5552af3f17)
